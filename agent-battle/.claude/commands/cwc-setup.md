@@ -9,15 +9,16 @@ different.
 
 ## Steps
 
-**1. Check the env vars** that must be set before setup:
+**1. Check the three participant env vars** that must be exported:
 
 ```bash
-for v in ANTHROPIC_API_KEY PARTICIPANT MINECRAFT_EULA LEADERBOARD_URL MC_SEED; do
+for v in ANTHROPIC_API_KEY PARTICIPANT MINECRAFT_EULA; do
   if [ -z "${!v:-}" ]; then echo "MISSING: $v"; else echo "OK: $v"; fi
 done
+[ -f .env.event ] && echo ".env.event present (provides LEADERBOARD_URL, MC_SEED, etc.)" || echo "NO .env.event"
 ```
 
-If any are MISSING, stop and tell them exactly what to export:
+If any of the three are MISSING, stop and tell them what to export:
 - `ANTHROPIC_API_KEY` — their own key from console.anthropic.com
 - `PARTICIPANT` — any unique name they pick
 - `MINECRAFT_EULA` — must be `accept`. Show them
@@ -25,10 +26,14 @@ If any are MISSING, stop and tell them exactly what to export:
   If yes, they run `export MINECRAFT_EULA=accept`. **You must
   not set this for them or assume agreement** — the user has to
   affirmatively accept the EULA themselves.
-- `LEADERBOARD_URL`, `MC_SEED` (and `LEADERBOARD_KEY`, `WIKI_MCP_URL`)
-  — the host pasted these as a 4-line block; they paste it verbatim
 
-Do NOT proceed until all are set.
+`LEADERBOARD_URL`, `LEADERBOARD_KEY`, `WIKI_MCP_URL`, `MC_SEED`
+come from the `.env.event` file in this directory — `setup.sh`
+reads them automatically. Do NOT block on these being unset in
+the shell. (If `.env.event` is missing AND none of the four are
+exported, ask the host for the SHARE block; otherwise proceed.)
+
+Do NOT proceed until the three participant vars are set.
 
 **2. Run setup** and capture the full output:
 
