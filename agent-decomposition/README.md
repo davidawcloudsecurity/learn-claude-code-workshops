@@ -118,8 +118,8 @@ skill / delete. Three cycles of *observe → diagnose → decide → verify*:
 | 3 | Run F2, find the confidence | "Where does the number get lost?" | Enable `forecasting`, drop `forecast_demand` — then decide how (or whether) a second agent gets involved | `--task F2,R7` |
 
 `agents/before/` is the original (read-only, runs locally on the raw Messages
-API). `agents/after/` is the reference. Your work goes in `starter/`. The
-table above is *one* decomposition — if you see a different one, try it.
+API). Your work goes in `starter/`. The table above is *one* decomposition —
+if you see a different one, try it.
 
 ## The 12 eval tasks
 
@@ -156,7 +156,6 @@ difference is *when* they're in context.
 ```
 agents/before/       the original — raw Messages API, 402-line prompt (read-only)
 agents/starter/      YOUR WORKING COPY — agent.py is the CMA config you edit
-agents/after/        the reference target — 15-line prompt, 5 skills, code-exec
 agents/cma.py        shared CMA helpers (deploy, run_session)
 agents/sandbox_tools.py  the 12 legacy tools, uploaded as ./tools.py in the sandbox
 .claude/skills/      the 5 skill files (400 lines total)

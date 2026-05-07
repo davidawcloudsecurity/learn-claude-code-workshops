@@ -52,7 +52,7 @@ This is a `uv`-managed project. All commands go through `uv run`.
 |---|---|
 | Install/sync deps | `uv sync` (reads `pyproject.toml`; no requirements.txt) |
 | Regenerate data | `uv run seed` |
-| Deploy agent to CMA | `uv run deploy starter` (or `after`) — idempotent |
+| Deploy agent to CMA | `uv run deploy starter` — idempotent |
 | Run one task | `uv run evals --agent starter --task F3` |
 | Run a subset | `uv run evals --agent starter --task F1,F2,F3` |
 | Full suite | `uv run evals --agent starter` (12 tasks, ~5-8 min) |

@@ -7,7 +7,7 @@ from agents.common import run_agent
 
 def main() -> None:
     p = argparse.ArgumentParser(prog="stockpilot")
-    p.add_argument("--agent", choices=["before", "starter", "after"], default="starter")
+    p.add_argument("--agent", choices=["before", "starter"], default="starter")
     p.add_argument("prompt", help="task for the agent")
     p.add_argument("--json", action="store_true")
     args = p.parse_args()

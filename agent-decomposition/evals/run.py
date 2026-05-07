@@ -143,10 +143,10 @@ def save_results(run_id: str, agent: str, results: list[dict]) -> Path:
 
 def main() -> None:
     p = argparse.ArgumentParser(prog="evals")
-    p.add_argument("--agent", choices=["before", "starter", "after"], default="starter")
+    p.add_argument("--agent", choices=["before", "starter"], default="starter")
     p.add_argument("--task", help="comma-separated task IDs (e.g. F1,F2)")
-    p.add_argument("--compare", nargs="?", const="after", default=None,
-                   help="run before vs AGENT (default: after) and show delta")
+    p.add_argument("--compare", nargs="?", const="starter", default=None,
+                   help="run before vs AGENT (default: starter) and show delta")
     p.add_argument("--trials", type=int, default=1)
     p.add_argument("--parallel", type=int, default=4)
     p.add_argument("--html", action="store_true")

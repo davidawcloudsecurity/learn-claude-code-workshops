@@ -1,6 +1,6 @@
 # Copyright 2026 Anthropic PBC
 # SPDX-License-Identifier: Apache-2.0
-"""Shared types and the agent runner interface that before/starter/after satisfy."""
+"""Shared types and the agent runner interface that before/starter satisfy."""
 from __future__ import annotations
 import json
 import os
@@ -98,12 +98,11 @@ def collect_actions(run_id: str) -> list[dict]:
 _RUNNERS = {
     "before": "agents.before.stockpilot",
     "starter": "agents.starter.run",
-    "after": "agents.after.run",
 }
 
 
 def run_agent(agent_name: str, prompt: str, max_turns: int = 15) -> AgentResult:
-    """Dispatch to before (local Messages API) or starter/after (CMA session)."""
+    """Dispatch to before (local Messages API) or starter (CMA session)."""
     if agent_name not in _RUNNERS:
         raise ValueError(f"unknown agent: {agent_name}")
     run_id = uuid.uuid4().hex[:12]

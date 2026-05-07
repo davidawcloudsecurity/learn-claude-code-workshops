@@ -1,6 +1,6 @@
 # Copyright 2026 Anthropic PBC
 # SPDX-License-Identifier: Apache-2.0
-"""Shared Claude Managed Agents helpers used by starter/ and after/.
+"""Shared Claude Managed Agents helpers used by starter/.
 
 Everything CMA-specific lives here so the per-agent files stay thin and
 attendee-editable. IDs are cached in .stockpilot_ids.json so deploy is
@@ -138,7 +138,7 @@ def ensure_env(c: anthropic.Anthropic, name: str, ids: dict) -> str:
 
 
 def ensure_agent(c: anthropic.Anthropic, config: dict, ids: dict, slot: str) -> str:
-    """Create or update a CMA agent by name. `slot` is 'starter' or 'after'."""
+    """Create or update a CMA agent by name. `slot` is e.g. 'starter'."""
     existing = ids.get("agents", {}).get(slot)
     if not existing:
         for a in c.beta.agents.list(limit=100):
