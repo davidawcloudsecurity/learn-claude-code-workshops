@@ -458,11 +458,6 @@ def main() -> int:
     )
     args = ap.parse_args()
 
-    api_key = os.environ.get("ANTHROPIC_API_KEY")
-    if not api_key:
-        print("ANTHROPIC_API_KEY is not set", file=sys.stderr)
-        return 2
-
     # Make sure SIGTERM/SIGINT exit cleanly so the orphan-cleanup helper
     # below has a chance to run.
     def _signal_exit(signum, frame):
@@ -473,10 +468,12 @@ def main() -> int:
     atexit.register(_kill_orphan_bot_actions, args.base_url)
 
     client = MinecraftClient(base_url=args.base_url)
+    # No explicit api_key: the SDK reads ANTHROPIC_API_KEY from env, or
+    # falls through to OAuth / workload-identity credentials if unset.
     # max_retries bumped from the SDK default (2): workshop participants
     # share an org rate limit, and a transient 429 should back off and
     # recover, not crash the run mid-task.
-    anthropic_client = anthropic.Anthropic(api_key=api_key, max_retries=10)
+    anthropic_client = anthropic.Anthropic(max_retries=10)
     _set_lb_meta(model=args.model)
 
     logger = None

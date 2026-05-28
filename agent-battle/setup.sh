@@ -151,7 +151,13 @@ _from_event() {
 [ -z "${LEADERBOARD_KEY:-}" ] && _from_event LEADERBOARD_KEY
 [ -z "${WIKI_MCP_URL:-}" ]    && _from_event WIKI_MCP_URL
 [ -z "${MC_SEED:-}" ]         && _from_event MC_SEED
-[ -n "${ANTHROPIC_API_KEY:-}" ] || die "ANTHROPIC_API_KEY not set — get one from console.anthropic.com → API Keys"
+# Auth: ANTHROPIC_API_KEY is the standard path (console.anthropic.com).
+# The SDK also supports OAuth / workload-identity credentials when the
+# env var is unset, so we warn rather than die — my_agent.py will fail
+# with a clear SDK error at run time if there's truly no auth.
+if [ -z "${ANTHROPIC_API_KEY:-}" ]; then
+  warn "ANTHROPIC_API_KEY not set — proceeding; the Anthropic SDK will use OAuth/workload-identity credentials if available, otherwise my_agent.py will fail with an auth error. (External participants: get a key at console.anthropic.com → API Keys.)"
+fi
 # Minecraft EULA — the user must accept it explicitly; we don't
 # auto-accept on their behalf (LEGAL-6615). Honor a pre-set env
 # var (so /cwc-setup and CI work) or prompt interactively.
@@ -177,7 +183,7 @@ export BOT_STATE_URL="http://localhost:${HTTP_PORT}"
 _mcu="$(printf '%s' "${MC_USERNAME:-${PARTICIPANT}}" | tr -c 'A-Za-z0-9_' '_')"
 export MC_USERNAME="${_mcu:0:16}"
 [ -n "${MC_USERNAME}" ] || export MC_USERNAME="claude"
-ok "ANTHROPIC_API_KEY set (${#ANTHROPIC_API_KEY} chars), PARTICIPANT='${PARTICIPANT}', mc_username='${MC_USERNAME}'"
+ok "auth: ${ANTHROPIC_API_KEY:+API key (${#ANTHROPIC_API_KEY} chars)}${ANTHROPIC_API_KEY:-SDK credential chain}, PARTICIPANT='${PARTICIPANT}', mc_username='${MC_USERNAME}'"
 
 # ── 4. local leaderboard (self-contained test) ──────────────────────
 if [ "$LOCAL_LB" = 1 ]; then

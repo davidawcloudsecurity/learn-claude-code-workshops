@@ -12,7 +12,7 @@ different.
 **1. Check the three participant env vars** that must be exported:
 
 ```bash
-for v in ANTHROPIC_API_KEY PARTICIPANT MINECRAFT_EULA; do
+for v in PARTICIPANT MINECRAFT_EULA; do
   if [ -z "${!v:-}" ]; then echo "MISSING: $v"; else echo "OK: $v"; fi
 done
 [ -f .env.event ] && echo ".env.event present (provides LEADERBOARD_URL, MC_SEED, etc.)" || echo "NO .env.event"
@@ -33,7 +33,7 @@ reads them automatically. Do NOT block on these being unset in
 the shell. (If `.env.event` is missing AND none of the four are
 exported, ask the host for the SHARE block; otherwise proceed.)
 
-Do NOT proceed until the three participant vars are set.
+Do NOT proceed until PARTICIPANT and MINECRAFT_EULA are set (ANTHROPIC_API_KEY is optional).
 
 **2. Run setup** and capture the full output:
 
