@@ -15,7 +15,7 @@ from provided import DATA, SYSTEM, metrics, deploys, diff
 
 # ── Bedrock client ────────────────────────────────────────────────────────
 _REGION = "us-east-1"
-_MODEL_ID = "us.anthropic.claude-sonnet-4-20250514"
+_MODEL_ID = "anthropic.claude-sonnet-4-20250514-v1:0"
 
 bedrock = boto3.client("bedrock-runtime", region_name=_REGION)
 
