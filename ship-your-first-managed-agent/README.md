@@ -56,6 +56,16 @@ headless = true
 port = 8501
 ```
 
+### Run from bedrock
+```
+pip install boto3
+streamlit run app_bedrock.py \
+  --server.port 8501 \
+  --server.enableCORS false \
+  --server.enableXsrfProtection false \
+  --server.enableWebsocketCompression false
+```
+
 The dashboard opens at `localhost:8501`. Click around — Metrics, Logs,
 Deploys all work. The SRE Agent panel on the right says
 *"agent offline — implement `setup_agent()` in `agent.py`"*.
