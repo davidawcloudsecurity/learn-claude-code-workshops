@@ -31,12 +31,29 @@ You need Python **3.10+** and an [Anthropic API key](https://console.anthropic.c
 git clone https://github.com/anthropic-experimental/cwc-workshops
 cd cwc-workshops/ship-your-first-managed-agent
 
-python -m venv .venv
+python3 -m venv .venv
 source .venv/bin/activate          # Windows: .venv\Scripts\activate
 
 pip install -r requirements.txt
 cp .env.example .env               # then put your ANTHROPIC_API_KEY in .env
 streamlit run app.py
+```
+
+### Encountered 2026-06-02 14:02:09.608 Rejecting WebSocket connection from disallowed origin: https://dd7ocjxz437c8.cloudfront.net
+```
+streamlit run app.py \
+  --server.port 8501 \
+  --server.enableCORS false \
+  --server.enableXsrfProtection false \
+  --server.enableWebsocketCompression false
+```
+Or more specifically, use the --browser.serverAddress flag or create a config.toml:
+```
+[server]
+enableCORS = false
+enableXsrfProtection = false
+headless = true
+port = 8501
 ```
 
 The dashboard opens at `localhost:8501`. Click around — Metrics, Logs,
