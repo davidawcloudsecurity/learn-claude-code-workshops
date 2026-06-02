@@ -66,6 +66,11 @@ streamlit run app_bedrock.py \
   --server.enableWebsocketCompression false
 ```
 
+### Error
+Error: An error occurred (ValidationException) when calling the Converse operation: The provided model identifier is invalid.
+```
+aws bedrock list-foundation-models --region us-east-1 --query "modelSummaries[?contains(modelId, 'claude')].modelId" --output table
+```
 The dashboard opens at `localhost:8501`. Click around — Metrics, Logs,
 Deploys all work. The SRE Agent panel on the right says
 *"agent offline — implement `setup_agent()` in `agent.py`"*.
